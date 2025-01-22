@@ -1,3 +1,10 @@
+// Déclaration des variables globales pour stocker les résultats
+let totalEmissions = 0;
+let diffVoiture = 0;
+let diffAvion = 0;
+let nomUtilisateur = '';
+let prenomUtilisateur = '';
+
 const emissionFactors = {
     train: 0.06,           // 60 g CO₂/km
     bus: 0.12,            // 120 g CO₂/km
@@ -8,19 +15,22 @@ const emissionFactors = {
     carDiesel: 0.099      // 99 g CO₂/km
 };
 
-
 function calculateCarbon() {
     // Récupère les distances et moyens de transport
-    const distance = parseFloat((document.getElementById('distance').value))*2|| 0; //*2 pour l'allez retour
-    const distance1 = parseFloat((document.getElementById('distance1').value))*2 || 0;
-    const distance2 = parseFloat((document.getElementById('distance2').value)) *2 || 0;
+    const distance = parseFloat((document.getElementById('distance').value)) * 2 || 0; //*2 pour l'allez retour
+    const distance1 = parseFloat((document.getElementById('distance1').value)) * 2 || 0;
+    const distance2 = parseFloat((document.getElementById('distance2').value)) * 2 || 0;
 
     const transport = document.getElementById('transport').value;
     const transport1 = document.getElementById('transport1').value;
     const transport2 = document.getElementById('transport2').value;
 
+    // Récupère les informations de l'utilisateur
+    nomUtilisateur = document.getElementById('Nom').value;
+    prenomUtilisateur = document.getElementById('Prénom').value;
+
     // Initialise les émissions totales
-    let totalEmissions = 0;
+    totalEmissions = 0;
 
     // Ajoute les émissions pour chaque mode de transport s'il est valide
     if (distance > 0 && emissionFactors[transport] !== undefined) {
@@ -47,8 +57,8 @@ function calculateCarbon() {
     const bilanAvion = distancetotale * emissionFactors.avion;
 
     // Calcul des émissions économisées
-    const diffVoiture = bilanVoiture - totalEmissions;
-    const diffAvion = bilanAvion - totalEmissions;
+    diffVoiture = bilanVoiture - totalEmissions;
+    diffAvion = bilanAvion - totalEmissions;
 
     // Génère le résultat final
     let resultHTML = `
@@ -62,15 +72,13 @@ function calculateCarbon() {
     // Affiche le résultat
     document.getElementById('result').innerHTML = resultHTML;
 
-     // Affichage de l'histogramme
-     displayCarbonChart(diffVoiture, diffAvion);
-
+    // Affichage de l'histogramme
+    displayCarbonChart(diffVoiture, diffAvion);
 
     // Change la section visible
     document.getElementById('form-section').style.display = 'none';
     document.getElementById('result-section').style.display = 'block';
 }
-
 
 // Fonction pour afficher le graphique
 function displayCarbonChart(diffVoiture, diffAvion) {
@@ -106,6 +114,28 @@ function displayCarbonChart(diffVoiture, diffAvion) {
             }
         }
     });
+}
+
+// Fonction pour générer et télécharger le fichier Excel
+function generateExcel() {
+    // Récupère la date actuelle
+    const date = new Date().toLocaleDateString('fr-FR');  // Formate la date en français (jour/mois/année)
+
+    // Prépare les données à insérer dans le fichier Excel
+    const data = [
+        ["Nom", "Prénom", "Différence par rapport à la voiture (kg CO₂)", "Différence par rapport à l'avion (kg CO₂)", "Date"],
+        [nomUtilisateur, prenomUtilisateur, diffVoiture.toFixed(2), diffAvion.toFixed(2), date]
+    ];
+
+    // Crée un objet de feuille Excel
+    const ws = XLSX.utils.aoa_to_sheet(data);
+
+    // Crée un classeur Excel à partir de la feuille
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Bilan Carbone");
+
+    // Exporte le fichier Excel
+    XLSX.writeFile(wb, "Bilan_Carbone.xlsx");
 }
 
 function goBack() {
