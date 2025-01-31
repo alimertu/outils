@@ -62,6 +62,7 @@ function calculateCarbon() {
 
     // Génère le résultat final
     let resultHTML = `
+        <p>Le résultat de vos émissions totales sur vos trajets est de <strong>${totalEmissions} kg CO₂</strong></p>
         <p>Félicitations ! Sur votre trajet allez-retour, vous avez économisé :</p>
         <ul>
             <li><strong>${diffVoiture.toFixed(2)} kg CO₂</strong> par rapport à un déplacement en voiture diesel.</li>
@@ -123,8 +124,8 @@ function generateExcel() {
 
     // Prépare les données à insérer dans le fichier Excel
     const data = [
-        ["Nom", "Prénom", "Différence par rapport à la voiture (kg CO₂)", "Différence par rapport à l'avion (kg CO₂)", "Date"],
-        [nomUtilisateur, prenomUtilisateur, diffVoiture.toFixed(2), diffAvion.toFixed(2), date]
+        ["Nom", "Prénom", "Emission Totales (kg CO₂)","Différence par rapport à la voiture (kg CO₂)", "Différence par rapport à l'avion (kg CO₂)", "Date"],
+        [nomUtilisateur, prenomUtilisateur, totalEmissions,diffVoiture.toFixed(2), diffAvion.toFixed(2), date]
     ];
 
     // Crée un objet de feuille Excel
