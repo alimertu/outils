@@ -1,29 +1,30 @@
-/* Style de base */
+/* Importation d'une police moderne */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* Styles généraux */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Aligne en haut */
-    min-height: 100vh; /* Hauteur minimale pour couvrir tout l'écran */
+    align-items: center;
+    min-height: 100vh;
     margin: 0;
-    background-color: #030319;
-    background-image: url("arbre.jpg");
-    background-repeat: repeat-x;
-    background-size: cover; /* Adapte l'image au conteneur */
-    padding: 20px; /* Ajoute un espace autour */
-    box-sizing: border-box; /* Inclut les marges/paddings dans les dimensions */
+    background: linear-gradient(to right, #4CAF50, #2E7D32);
+    color: #333;
+    padding: 20px;
 }
 
 /* Conteneur principal */
 .container {
-    background-color: rgba(255, 255, 255, 0.95); /* Légèrement transparent */
-    padding: 2em;
-    border-radius: 8px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 500px; /* Limite la largeur sur les grands écrans */
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(10px);
+    padding: 2.5em;
+    border-radius: 12px;
+    box-shadow: 0px 8px 18px rgba(0, 0, 0, 0.15);
+    width: 90%;  /* Augmente la largeur */
+    max-width: 700px; /* Pour qu'il reste lisible */
     text-align: center;
-    position: relative; /* Nécessaire pour le logo */
+    position: relative; /* Permet d'ajouter le logo */
 }
 
 /* Logo en haut à gauche */
@@ -32,74 +33,141 @@ body {
     position: absolute;
     top: 15px;
     left: 15px;
-    width: 50px; /* Ajuste la taille */
+    width: 50px;
     height: 50px;
     background-image: url("eseo.png");
     background-repeat: no-repeat;
     background-size: contain;
 }
 
-/* Titres */
+.logo-container {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.globe {
+    font-size: 30px;
+    margin-left: 10px; /* Ajuste l'espacement avec le logo */
+}
+
+/* Titre */
 h1 {
-    color: #333333;
-    margin-top: 0; /* Supprime le décalage par défaut */
+    color: #2E7D32;
+    font-size: 26px;
+    margin-bottom: 20px;
 }
 
 /* Formulaire */
 form {
     display: flex;
     flex-direction: column;
-    gap: 1em;
+    gap: 15px;
 }
 
-/* Champs et boutons */
-input, select, button {
-    padding: 0.5em;
-    font-size: 1em;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 100%;
+/* Champs et labels */
+label {
+    font-weight: bold;
+    text-align: left;
+    display: block;
+    margin-bottom: 5px;
 }
 
+input, select {
+    padding: 12px;
+    font-size: 1rem;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    transition: border-color 0.3s ease-in-out;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+input:focus, select:focus {
+    border-color: #2E7D32;
+}
+
+/* Boutons */
 button {
-    background-color: #28a745;
-    color: white;
+    padding: 12px;
+    font-size: 1rem;
     border: none;
+    border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: transform 0.2s, background-color 0.3s;
 }
 
 button:hover {
-    background-color: #218838;
+    transform: scale(1.05);
+}
+
+/* Bouton calcul */
+button[type="button"] {
+    background-color: #2E7D32;
+    color: white;
+}
+
+button[type="button"]:hover {
+    background-color: #1B5E20;
 }
 
 /* Résultat */
-#result {
-    margin-top: 1em;
-    font-size: 1.2em;
-    color: #333;
-}
-
 #result-section {
-    display: none; /* Masque la section résultat par défaut */
+    display: none;
     margin-top: 20px;
     padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Bouton "Revenir" */
+/* Graphique */
+canvas {
+    margin-top: 20px;
+    max-width: 100%;
+}
+
+/* Bouton retour */
 #back-button {
     background-color: #007BFF;
     color: white;
-    border: none;
-    padding: 10px 15px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 20px;
-    transition: background-color 0.3s ease;
+    margin-top: 15px;
 }
 
 #back-button:hover {
     background-color: #0056b3;
+}
+
+/* Bouton téléchargement */
+#download-excel-btn {
+    background-color: #FF9800;
+    color: white;
+}
+
+#download-excel-btn:hover {
+    background-color: #E65100;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 1.5em;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    button {
+        font-size: 0.9rem;
+    }
+
+    .container::after {
+        width: 35px;
+        height: 35px;
+        left: 65px; /* Ajuste la position du globe pour mobile */
+    }
 }
