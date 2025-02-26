@@ -5,14 +5,16 @@ let diffAvion = 0;
 let nomUtilisateur = '';
 let prenomUtilisateur = '';
 
+
+//Listes des facteurs d'émission utilisés pour le calcul en kgCO2e
 const emissionFactors = {
-    train: 0.06,           // 60 g CO₂/km
-    bus: 0.12,            // 120 g CO₂/km
-    avion: 0.152,         // 152 g CO₂/km
-    bateau: 0,            // 0 g CO₂/km (selon vos données)
-    VoitureElectrique: 0.0367, // 36.7 g CO₂/km
-    AutoStop: 0,          // 0 g CO₂/km (émissions partagées ou négligeables)
-    carDiesel: 0.099      // 99 g CO₂/km
+    train: 0.0056,           // base ADEME Train grandes lignes France continentale
+    bus: 0.0743,            // base ADEME Bus/RATP/Hybride, full, P2 France continentale
+    avion: 0.141,         //  base ADEME Avion Cours Courrier SANS trainées France continentale 
+    voilier: 0,            // 0 g CO₂/km 
+    velo: 0,
+    carDiesel: 0.227,      // base ADEME Voiture/Motorisation gazole/2018
+    marche:0
 };
 
 function calculateCarbon() {
@@ -62,7 +64,7 @@ function calculateCarbon() {
 
     // Génère le résultat final
     let resultHTML = `
-        <p>Le résultat de vos émissions totales sur vos trajets est de <strong>${totalEmissions} kg CO₂</strong></p>
+        <p>Le résultat de vos émissions totales sur vos trajets est de <strong>${totalEmissions.toFixed(2)} kg CO₂e</strong></p>
         <p>Félicitations ! Sur votre trajet allez-retour, vous avez économisé :</p>
         <ul>
             <li><strong>${diffVoiture.toFixed(2)} kg CO₂</strong> par rapport à un déplacement en voiture diesel.</li>
@@ -135,8 +137,11 @@ function generateExcel() {
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Bilan Carbone");
 
+    const fileName = `${nomUtilisateur}_${prenomUtilisateur}_Bilan_Carbone.xlsx`;
+
+
     // Exporte le fichier Excel
-    XLSX.writeFile(wb, "Bilan_Carbone.xlsx");
+    XLSX.writeFile(wb, fileName);
 }
 
 function goBack() {
