@@ -8,12 +8,12 @@ let prenomUtilisateur = '';
 
 //Listes des facteurs d'émission utilisés pour le calcul en kgCO2e
 const emissionFactors = {
-    train: 0.0056,           // base ADEME Train grandes lignes France continentale
-    bus: 0.0743,            // base ADEME Bus/RATP/Hybride, full, P2 France continentale
-    avion: 0.141,         //  base ADEME Avion Cours Courrier SANS trainées France continentale 
+    train: 0.0498,           // base ADEME moyenne européenne
+    autocar: 0.0295,            // base ADEME Bus/RATP/Hybride, full, P2 France continentale
+    avion: 0.103,         //  base ADEME Avion moyen Courrier SANS trainées 
     voilier: 0,            // 0 g CO₂/km 
     velo: 0,
-    carDiesel: 0.227,      // base ADEME Voiture/Motorisation gazole/2018
+    carDiesel: 0.231,      // base ADEME Voiture/Motorisation moyenne/2018 même si écrit car diesel
     marche:0
 };
 
@@ -67,8 +67,8 @@ function calculateCarbon() {
         <p>Le résultat de vos émissions totales sur vos trajets est de <strong>${totalEmissions.toFixed(2)} kg CO₂e</strong></p>
         <p>Félicitations ! Sur votre trajet allez-retour, vous avez économisé :</p>
         <ul>
-            <li><strong>${diffVoiture.toFixed(2)} kg CO₂</strong> par rapport à un déplacement en voiture diesel.</li>
-            <li><strong>${diffAvion.toFixed(2)} kg CO₂</strong> par rapport à un déplacement en avion.</li>
+            <li><strong>${diffVoiture.toFixed(2)} kg CO₂e</strong> par rapport à un déplacement en voiture .</li>
+            <li><strong>${diffAvion.toFixed(2)} kg CO₂e</strong> par rapport à un déplacement en avion.</li>
         </ul>
     `;
 
