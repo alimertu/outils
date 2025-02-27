@@ -10,10 +10,10 @@ let prenomUtilisateur = '';
 const emissionFactors = {
     train: 0.0498,           // base ADEME moyenne européenne
     autocar: 0.0295,            // base ADEME Bus/RATP/Hybride, full, P2 France continentale
-    avion: 0.103,         //  base ADEME Avion moyen Courrier SANS trainées 
+    avion: 0.187,         //  base ADEME Avion moyen Courrier SANS trainées 
     voilier: 0,            // 0 g CO₂/km 
     velo: 0,
-    carDiesel: 0.231,      // base ADEME Voiture/Motorisation moyenne/2018 même si écrit car diesel
+    carDiesel: 0.227,      // base ADEME Voiture/Motorisation moyenne/2018 même si écrit car diesel
     marche:0
 };
 
