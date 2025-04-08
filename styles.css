@@ -118,7 +118,15 @@ button[type="button"]:hover {
     display: none;
     margin-top: 20px;
     padding: 20px;
-    background: rgba(255, 255, 255, 0.95);
+    background:lightgray;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#canva-section{
+    display: none;
+    margin-top: 20px;
+    padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
