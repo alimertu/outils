@@ -1,101 +1,103 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Outil Bourse Mobilité Douce</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Outil Bourse Mobilité Douce</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
 </head>
 <body>
     <div class="container">
 
+        
         <div class="logo-container">
             <span class="globe">🌍</span>
         </div>
         <header>
             <h1>Outil Bourse Mobilité Douce</h1>
         </header>
+
         <div id="form-section">
-            
-            <!-- Formulaire de calcul du bilan carbone -->
-            <form id="carbonForm">
 
-                <p>Bienvenue sur l'outil bourse mobilité douce. Cet outil vous renseigne sur les émissions liées à votre déplacement vers votre lieu de stage en utilisant des moyens de transport peu émissifs en comparaison avec la voiture et l'avion. Le résultat sera à transmettre au service international.</p>
-        
-            <input type="text" id="Nom" name="Nom" required placeholder="Entrez votre nom">
-            <input type="text" id="Prénom" name="Prénom" required placeholder="Entrez votre Prénom">
+            <p>Bienvenue sur l'outil bourse mobilité douce. Cet outil vous renseigne sur les émissions liées à votre déplacement vers votre lieu de stage en utilisant des moyens de transport peu émissifs en comparaison avec la voiture et l'avion. Le résultat sera à transmettre au service international.</p>
 
-            <p>Renseignez les différents modes de transport pour vous rendre sur le lieu du stage ainsi que la distance allez parcourue pour chaque mode.</p>
+  <form id="carbonForm">
 
-                <label for="transport">Mode de transport principal :</label>
-                <select id="transport" name="transport" required>
-                    <option value=""></option>
-                    <option value="train">Train</option>
-                    <option value="autocar">Autocar</option>
-                    <option value="voilier">Voilier</option>
-                    <option value="velo">Vélo</option>
-                    <option value="marche">Marche</option>
-                    
-                    
-                </select>
-                
-                <label for="distance">Distance parcourue (en km) pour votre premier mode de transport :</label>
-                <input type="number" id="distance" name="distance" required min="0" placeholder="Entrez la distance">
+    <label>Entrez votre Nom :</label>
+    <input type="text" id="Nom" required>
 
-                <hr>
-                <label for="transport1"> Deuxième mode de transport si existant: </label>
-                <select id="transport1" name="transport1">
-                    <option value=""></option>
-                    <option value="train">Train</option>
-                    <option value="autocar">Autocar</option>
-                    <option value="voilier">Voilier</option>
-                    <option value="velo">Vélo</option>
-                    <option value="marche">Marche</option>
-                    
-                    
-                </select>
-                <label for="distance1">Distance parcourue (en km) pour le deuxième mode de transport :</label>
-                <input type="number" id="distance1" name="distance1" min="0" placeholder="Entrez la distance">
+    <label>Entrez votre Prénom :</label>
+    <input type="text" id="Prénom" required>
 
-                <hr>
-                <label for="transport2">Troisième mode de transport si existant :</label>
-                <select id="transport2" name="transport2">
-                    <option value=""></option>
-                    <option value="train">Train</option>
-                    <option value="autocar">Autocar</option>
-                    <option value="voilier">Voilier</option>
-                    <option value="velo">Vélo</option>
-                    <option value="marche">Marche</option>
-                    
-                    
-                </select>
-                <label for="distance2">Distance parcourue (en km) pour le troisième mode de transport :</label>
-                <input type="number" id="distance2" name="distance2" min="0" placeholder="Entrez la distance">
+    <label>Entrez la ville de votre stage :</label>
+    <input type="text" id="ville" required>
 
-                <button type="button" onclick="calculateCarbon()">
-                    <span class="icon">📊</span>  Calculer
-                </button>
-                <input type="reset"  value="Réinitialiser">
-            </form>
-        </div>
+    <p>Renseignez les différents modes de transport pour vous rendre sur le lieu du stage ainsi que la distance allez parcourue pour chaque mode.</p>
 
-        <!-- Affichage du résultat -->
-        <div id="result-section">
-            <h2>Résultat</h2>
-            <div id="result"></div>
-            <canvas id="carbonChart" width="400" height="200"></canvas>
-            <button id="back-button" type="button" onclick="goBack()">Revenir au formulaire</button>
-            <button id="download-excel-btn" type="button" onclick="generateExcel()">Télécharger le fichier Excel</button>
-
-            
-           
-        </div>
-    </div>
-
+    <!-- Trajets -->
+    <label for="transport1">Mode de transport principal :</label>
+      
+      <select class="transport" required>
+        <option value="">-- Sélectionnez --</option>
+        <option value="train" data-id="43256">Train</option>
+        <option value="autocar" data-id="28006">Autocar</option>
+        <option value="marche">Marche</option>
+        <option value="velo">Vélo</option>
+        <option value="voilier">Voilier</option>
+      </select>
+      <input type="number" class="distance" placeholder="Distance (km)" required>
     
 
-    <script src="script.js"></script>
+      <label for="transport2"> Deuxième mode de transport si existant: </label>
+      <select class="transport">
+        <option value="">-- Sélectionnez --</option>
+        <option value="train" data-id="43256">Train</option>
+        <option value="autocar" data-id="28006">Autocar</option>
+        <option value="marche">Marche</option>
+        <option value="velo">Vélo</option>
+        <option value="voilier">Voilier</option>
+      </select>
+      <input type="number" class="distance" placeholder="Distance (km)">
+   
+
+      <label for="transport3">Troisième mode de transport si existant :</label>
+      <select class="transport">
+        <option value="">-- Sélectionnez --</option>
+        <option value="train" data-id="43256">Train</option>
+        <option value="autocar" data-id="28006">Autocar</option>
+        <option value="marche">Marche</option>
+        <option value="velo">Vélo</option>
+        <option value="voilier">Voilier</option>
+      </select>
+      <input type="number" class="distance" placeholder="Distance (km)">
+    
+
+    <button type="button" onclick="calculerCO2()">Calculer</button>
+  </form>
+</div>
+
+<div id="result-section">
+    <h2>Résultat</h2>
+    <div id="result"></div>
+    
+    <button onclick="location.reload()">🔄 Refaire un calcul</button>
+    <button onclick="affichergraphe()"> Afficher les comparaisons graphiques</button>
+    <button onclick="generateExcel()"> Exporter en Excel </button>
+
+
+   
+</div>
+
+<div id="canva-section">
+  <h2>Graphique comparatif</h2>
+  <canvas id="carbonChart" width="400" height="200"></canvas>
+  <button type="button" onclick="goBack()">Revenir aux résultats</button>
+</div>
+
+  
+</div>
+  <script src="test.js"></script>
 </body>
 </html>
